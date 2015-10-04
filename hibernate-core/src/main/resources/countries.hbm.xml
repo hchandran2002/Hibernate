@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate-mapping Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.persistence.entity.Countries" table="COUNTRIES">
+		<meta attribute="class-description">
+			This class contains the Countries mapping.
+		</meta>
+
+		<id name="countryId" type="string" column="COUNTRY_ID">
+			<generator class="assigned" />
+		</id>
+
+		<property name="countryName" type="string" column="COUNTRY_NAME"
+			not-null="false" />
+
+		<property name="regionId" type="integer" column="REGION_ID"
+			not-null="false" />
+
+	</class>
+
+</hibernate-mapping>
