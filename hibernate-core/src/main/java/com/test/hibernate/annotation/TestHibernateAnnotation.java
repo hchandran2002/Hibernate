@@ -6,7 +6,8 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import com.persistence.entity.annotate.CountriesAnnotate;
 
@@ -17,9 +18,14 @@ public class TestHibernateAnnotation {
 	public static void main(String[] args) {
 
 		try {
-			factory = new AnnotationConfiguration().configure().
-					// addPackage("com.xyz") //add package if used.
-					addAnnotatedClass(CountriesAnnotate.class).buildSessionFactory();
+
+			Configuration cfg = new Configuration().addResource("hibernate.cfg.xml")
+					.addAnnotatedClass(CountriesAnnotate.class)
+					.configure();
+			StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder()
+					.applySettings(cfg.getProperties());
+			factory = cfg.buildSessionFactory(ssrb.build());
+
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
